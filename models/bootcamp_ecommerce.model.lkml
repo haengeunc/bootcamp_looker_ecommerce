@@ -1,9 +1,10 @@
 connection: "bigquery_connection"
 
 # include all the views
-include: "/views/**/*.view.lkml"
+# include: "/views/**/*.view.lkml"
 include: "/explores/explore_orders_customers.explore"
 include: "/explores/explore_inventory_products.explore.lkml"
+include: "/explores/explore_events_users.explore.lkml"
 
 
 
@@ -15,15 +16,4 @@ datagroup: bootcamp_ecommerce_default_datagroup {
 persist_with: bootcamp_ecommerce_default_datagroup
 
 
-
-
-
 ##--------------------------------------
-
-explore: events {
-  join: users {
-    type: left_outer
-    sql_on: ${events.user_id} = ${users.id} ;;
-    relationship: many_to_one
-  }
-}
