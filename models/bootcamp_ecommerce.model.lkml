@@ -1,4 +1,4 @@
-connection: "haengeun_bq"
+connection: "bigquery_connection"
 
 # include all the views
 include: "/views/**/*.view.lkml"
