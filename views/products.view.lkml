@@ -7,10 +7,37 @@ view: products {
     type: number
     sql: ${TABLE}.id ;;
   }
+
+#----------------------------------------------------------
+#-------Create external links to navigate to explore/google/dashboard
   dimension: brand {
     type: string
     sql: ${TABLE}.brand ;;
+
+    link: {
+      label: "Google"
+      url: "http://www.google.com/search?q={{ value }}"
+      icon_url: "http://google.com/favicon.ico"
+    }
+    link: {
+      label: "Facebook"
+      url: "https://www.facebook.com/{{value}}/"
+      icon_url: "https://facebook.com/favicon.ico"
+    }
+    link: {
+      label: "Order Items Explore"
+      url: "https://cntxtdeliveryteam.cloud.looker.com/explore/bootcamp_ecommerce/order_items?fields=order_items.count,users.count,products.brand&f[products.brand]={{ value }}&sorts=order_items.count_order+desc+0&limit=500"
+    }
+    link: {
+      label: "Brand Comparisons Dashboard"
+      url: "https://cntxtdeliveryteam.cloud.looker.com/dashboards/3?Category={{_filters['products.category']|url_encode}}&Brand={{ value | url_encode}}"
+    }
   }
+
+#----------------------------------------------------------
+
+
+
   dimension: category {
     type: string
     sql: ${TABLE}.category ;;
@@ -36,25 +63,44 @@ view: products {
     type: number
     sql: ${TABLE}.retail_price ;;
   }
+
+  dimension: retail_price_group {
+    type: tier
+    sql: ${retail_price} ;;
+    tiers: [0,50,100,150,200,250,300]
+    style:  integer
+  }
+
   dimension: sku {
     type: string
     sql: ${TABLE}.sku ;;
   }
+
+  #####################################
+#-----MEASURES------------------------
+
+
   measure: count {
     type: count
     drill_fields: [detail*]
   }
 
+  measure: gross_margin {
+    type: sum
+    sql: ${retail_price} - ${cost} ;;
+    value_format_name: gbp
+  }
+
   # ----- Sets of fields for drilling ------
   set: detail {
     fields: [
-	id,
-	name,
-	distribution_centers.name,
-	distribution_centers.id,
-	inventory_items.count,
-	order_items.count
-	]
+  id,
+  name,
+  distribution_centers.name,
+  distribution_centers.id,
+  inventory_items.count,
+  order_items.count
+  ]
   }
 
 }
