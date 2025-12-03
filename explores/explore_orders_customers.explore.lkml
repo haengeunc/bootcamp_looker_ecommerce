@@ -3,10 +3,13 @@ include: "/views/orders.view"
 include: "/views/order_items.view"
 include: "/views/products.view"
 
-
 ##--------------------------------------
 
-explore: order_items {
+explore: orders_customers {
+  description: "Explore orders placed by customers"
+
+  view_name: order_items
+
   join: users {
     type: left_outer
     sql_on: ${order_items.user_id} = ${users.id} ;;
@@ -24,6 +27,7 @@ explore: order_items {
     sql_on: ${order_items.product_id} = ${products.id} ;;
     relationship: many_to_one
   }
+
 }
 
 

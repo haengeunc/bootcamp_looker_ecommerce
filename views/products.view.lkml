@@ -91,6 +91,20 @@ view: products {
     value_format_name: gbp
   }
 
+  #####################################
+#-----MEASURES------------------------
+
+  parameter: retail_price_bucket_size {
+    type: number
+  }
+
+  dimension: retail_dynamic_price_group {
+    type: number
+    sql: TRUNC(${retail_price} / {% parameter ${retail_price_bucket_size}%})
+      * {% parameter ${retail_price_bucket_size}%} ;;
+  }
+
+
   # ----- Sets of fields for drilling ------
   set: detail {
     fields: [

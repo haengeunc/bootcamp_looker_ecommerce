@@ -9,7 +9,7 @@ view: order_items {
   }
   dimension_group: created {
     type: time
-    timeframes: [raw, time, date, week, month, quarter, year]
+    timeframes: [raw, time, date, week, month, month_name, quarter, year]
     sql: ${TABLE}.created_at ;;
   }
   dimension_group: delivered {
@@ -120,6 +120,49 @@ view: order_items {
     sql: MAX(${created_date}) ;;
 
   }
+
+#--------
+
+  # measure: dynamic_count {
+  #   type: count_distinct
+  #   sql: ${TABLE}.{% parameter item_to_count %} ;;
+  #   label_from_parameter: item_to_count
+  # }
+
+
+  # # ----- parameter ------
+
+  # parameter: item_to_count {
+  #   type: unquoted
+  #   allowed_value: {
+  #     label: "Count of customers"
+  #     value: "user_id"
+  #   }
+  #   allowed_value: {
+  #     label: "Count of orders "
+  #     value: "order_id"
+  #   }
+  #   allowed_value: {
+  #     label: "Products"
+  #     value: "product_id"
+  #   }
+
+  #   allowed_value: {
+  #     label: "Count of order items"
+  #     value: "id"
+  #   }
+  # }
+
+
+
+  # dimension: welcome_message {
+  #   type: string
+  #   sql: 1 ;;
+  #   html: Welcome {{ _user_attributes['first_name']}} {{ _user_attributes['last_name']}}! ;;
+  # }
+
+
+
 
   # ----- Sets of fields for drilling ------
   set: detail {

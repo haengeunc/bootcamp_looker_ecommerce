@@ -7,6 +7,9 @@ include: "/explores/explore_inventory_products.explore.lkml"
 include: "/explores/explore_events_users.explore.lkml"
 
 
+include: "/dashboards/overview.dashboard.lookml"
+include: "/dashboards/products.dashboard.lookml"
+
 
 datagroup: bootcamp_ecommerce_default_datagroup {
   # sql_trigger: SELECT MAX(id) FROM etl_log;;

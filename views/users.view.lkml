@@ -184,11 +184,6 @@ view: users {
     type: average
     sql: ${age} ;;
     value_format_name: decimal_1
-    html:{{rendered_value}}
-          <p style="height: 50px"><a style="font-size:10px; padding: 3px 4px 3px 2px; letter-spacing: 0px; border: 1px solid #0042e4;text-align:center;color: #0042e4; background-color: white; " href="https://google.com" target="_blank" rel="noopener noreferrer">
-          <img src="https://b-new.be/wp-content/uploads/2020/07/LK.png" height=10 width=14> button </a></p>
-          ;;
-
   }
 
 
