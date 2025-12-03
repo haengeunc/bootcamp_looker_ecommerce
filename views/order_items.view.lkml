@@ -74,16 +74,17 @@ view: order_items {
 
   measure: total_sale_price {
     type: sum
-    value_format_name: gbp
+    value_format_name: usd
     sql: ${sale_price} ;;
     description: "Total revenue from all items, including returned"
     drill_fields: [detail*]
     html: <font color="blue">{{rendered_value}}</font> ;;
   }
 
+
   measure: average_sale_price {
     type: average
-    value_format_name: gbp
+    value_format_name: usd
     sql: ${sale_price} ;;
     filters: [order_items.status: "Complete, Processing, Shipped"]
     description: "Average sales from items sold"
@@ -96,6 +97,15 @@ view: order_items {
           {% else %}
           <font color="red">{{rendered_value}}</font>
           {% endif %} ;;
+  }
+
+
+  measure: website_totalsales {
+    type: sum
+    sql: ${sale_price} ;;
+    filters: [users.traffic_source: "Email"]
+    description: "Total sales for users that signed up via email traffic source"
+    value_format_name: usd
   }
 
 

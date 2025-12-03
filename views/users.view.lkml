@@ -139,16 +139,18 @@ view: users {
     sql: ${TABLE}.street_address ;;
     group_label: "Location"
   }
-  dimension: traffic_source {
-    type: string
-    sql: ${TABLE}.traffic_source ;;
-    group_label: "Location"
-  }
+
 
   dimension: user_geom {
     type: string
     sql: ${TABLE}.user_geom ;;
     group_label: "Location"
+  }
+
+  dimension: traffic_source {
+    type: string
+    sql: ${TABLE}.traffic_source ;;
+
   }
 
 #####################################
