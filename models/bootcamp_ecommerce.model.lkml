@@ -1,7 +1,15 @@
 connection: "bigquery_connection"
 
 # include all the views
-include: "/views/**/*.view.lkml"
+# include: "/views/**/*.view.lkml"
+include: "/explores/explore_orders_customers.explore"
+include: "/explores/explore_inventory_products.explore.lkml"
+include: "/explores/explore_events_users.explore.lkml"
+
+
+include: "/dashboards/overview.dashboard.lookml"
+include: "/dashboards/products.dashboard.lookml"
+
 
 datagroup: bootcamp_ecommerce_default_datagroup {
   # sql_trigger: SELECT MAX(id) FROM etl_log;;
@@ -10,50 +18,5 @@ datagroup: bootcamp_ecommerce_default_datagroup {
 
 persist_with: bootcamp_ecommerce_default_datagroup
 
-##--------------------------------------
-
-explore: order_items {
-  join: users {
-    type: left_outer
-    sql_on: ${order_items.user_id} = ${users.id} ;;
-    relationship: many_to_one
-  }
-
-  join: orders {
-    type: left_outer
-    sql_on: ${order_items.order_id} = ${orders.order_id} ;;
-    relationship: many_to_one
-  }
-
-  join: products {
-    type: left_outer
-    sql_on: ${order_items.product_id} = ${products.id} ;;
-    relationship: many_to_one
-  }
-}
 
 ##--------------------------------------
-
-explore: inventory_items {
-  join: products {
-    type: left_outer
-    sql_on: ${inventory_items.product_id} = ${products.id} ;;
-    relationship: many_to_one
-  }
-
-  join: distribution_centers {
-    type: left_outer
-    sql_on: ${products.distribution_center_id} = ${distribution_centers.id} ;;
-    relationship: many_to_one
-  }
-}
-
-##--------------------------------------
-
-explore: events {
-  join: users {
-    type: left_outer
-    sql_on: ${events.user_id} = ${users.id} ;;
-    relationship: many_to_one
-  }
-}

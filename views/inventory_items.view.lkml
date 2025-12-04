@@ -54,8 +54,16 @@ view: inventory_items {
     timeframes: [raw, time, date, week, month, quarter, year]
     sql: ${TABLE}.sold_at ;;
   }
+
+  dimension: is_sold {
+    type: yesno
+    sql: ${sold_raw} is not null ;;
+  }
+
+
   measure: count {
     type: count
+    label: "Count of inventory items"
     drill_fields: [id, product_name, products.name, products.id, order_items.count]
   }
 }
