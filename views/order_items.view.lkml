@@ -82,6 +82,25 @@ view: order_items {
   }
 
 
+# 2. The specific measure (Filtered)
+  measure: jeans_revenue {
+    type: sum
+    sql: ${sale_price} ;;
+    filters: [products.category: "Jeans"] # Only counts rows where category is Jeans
+  }
+
+# 3. The comparison (Using unfiltered vs filtered)
+  measure: jeans_revenue_share {
+    type: number
+    sql: ${jeans_revenue} / NULLIF(${total_sale_price}, 0) ;;
+    value_format_name: percent_1
+    description: "% of jeans revenue share of total sale"
+  }
+
+
+
+
+
   measure: average_sale_price {
     type: average
     value_format_name: usd
