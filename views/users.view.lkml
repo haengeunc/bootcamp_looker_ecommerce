@@ -19,11 +19,19 @@ view: users {
     sql: ${age} ;;
   }
 
+  dimension: city_state {
+    type: string
+    sql: CONCAT(${city} || " " || ${state}) ;;
+  }
+
 
   dimension: city {
     type: string
     sql: ${TABLE}.city ;;
   }
+
+
+
   dimension: country {
     type: string
     map_layer_name: countries
@@ -190,13 +198,13 @@ view: users {
   # ----- Sets of fields for drilling ------
   set: detail {
     fields: [
-  id,
-  last_name,
-  first_name,
-  orders.count,
-  order_items.count,
-  events.count
-  ]
+      id,
+      last_name,
+      first_name,
+      orders.count,
+      order_items.count,
+      events.count
+    ]
   }
 
 }
